@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snackbar – Online Shop</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f6f6;
+      color: #222;
+    }
+    header {
+      background: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; }
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .card h2 {
+      margin-top: 0;
+    }
+    .price {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .buy {
+      margin-top: auto;
+      text-align: center;
+    }
+    .buy a {
+      display: inline-block;
+      background: #000;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .buy a:hover {
+      background: #333;
+    }
+    footer {
+      background: #eee;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🍫 Snackbar</h1>
+  <p>Süßigkeiten einfach online bestellen</p>
+</header>
+
+<main>
+  <section class="products">
+
+    <div class="card">
+      <h2>Oreo Milka Tafel 300g</h2>
+      <p>Große Oreo-Milka-Schokoladentafel mit cremiger Füllung.</p>
+      <div class="price">4,00 €</div>
+      <div class="buy">
+        <a href="mailto:snackbar@beispiel.de?subject=Bestellung Oreo Milka 300g&body=Ich möchte die Oreo Milka Tafel 300g für 4,00 € bestellen.">Jetzt per E-Mail bestellen</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Oreo Milka Tafel 100g</h2>
+      <p>Klassische Oreo-Milka-Tafel in handlicher Größe.</p>
+      <div class="price">1,00 €</div>
+      <div class="buy">
+        <a href="mailto:snackbar@beispiel.de?subject=Bestellung Oreo Milka 100g&body=Ich möchte die Oreo Milka Tafel 100g für 1,00 € bestellen.">Jetzt per E-Mail bestellen</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Mentos Stange</h2>
+      <p>Frische Mentos im klassischen Rollenformat.</p>
+      <div class="price">0,50 €</div>
+      <div class="buy">
+        <a href="mailto:snackbar@beispiel.de?subject=Bestellung Mentos&body=Ich möchte eine Mentos Stange für 0,50 € bestellen.">Jetzt per E-Mail bestellen</a>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Snackbar</p>
+  <p>Bestellungen per E-Mail • Kein Mindestbestellwert</p>
+</footer>
+
+</body>
+</html>
