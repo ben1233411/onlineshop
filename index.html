@@ -6,76 +6,123 @@
   <title>Snackbar – Online Shop</title>
 
   <style>
+    :root {
+      --bg: #f6f6f6;
+      --text: #222;
+      --card: #ffffff;
+      --header: #111;
+      --button: #000;
+      --button-hover: #333;
+      --overlay: rgba(0,0,0,0.6);
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card: #1e1e1e;
+      --header: #000;
+      --button: #f1f1f1;
+      --button-hover: #ccc;
+      --overlay: rgba(0,0,0,0.8);
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: #f6f6f6;
-      color: #222;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
     }
+
     header {
-      background: #111;
+      background: var(--header);
       color: white;
       padding: 20px;
       text-align: center;
+      position: relative;
     }
+
+    .toggle {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+
     main {
       max-width: 1000px;
       margin: 40px auto;
       padding: 0 20px;
     }
+
     .products {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
+
     .card {
-      background: white;
+      background: var(--card);
       border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
       padding: 20px;
       display: flex;
       flex-direction: column;
+      transition: background 0.3s;
     }
+
     .price {
       font-size: 1.4em;
       font-weight: bold;
       margin: 10px 0;
     }
+
     button {
-      background: black;
-      color: white;
+      background: var(--button);
+      color: var(--bg);
       border: none;
       padding: 12px;
       border-radius: 8px;
       cursor: pointer;
     }
-    button:hover { background: #333; }
+
+    button:hover {
+      background: var(--button-hover);
+    }
 
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.6);
+      background: var(--overlay);
       display: none;
       justify-content: center;
       align-items: center;
     }
+
     .popup {
-      background: white;
+      background: var(--card);
       padding: 25px;
       border-radius: 12px;
       width: 320px;
       text-align: center;
     }
+
     input {
-      width: 70px;
+      width: 80px;
       padding: 5px;
       font-size: 1em;
       text-align: center;
     }
+
     .hint {
       font-size: 0.9em;
-      color: #555;
-      margin-top: 8px;
+      opacity: 0.8;
+    }
+
+    .warning {
+      font-size: 0.9em;
+      color: #ff6b6b;
     }
   </style>
 </head>
@@ -84,6 +131,7 @@
 <header>
   <h1>🍫 Snackbar</h1>
   <p>Süßigkeiten einfach online bestellen</p>
+  <div class="toggle" onclick="toggleDark()">🌙</div>
 </header>
 
 <main>
@@ -119,10 +167,11 @@
 
     <p>
       Anzahl:
-      <input type="number" id="qty" value="1" min="1" oninput="updatePrice()">
+      <input type="number" id="qty" value="1" min="1" max="100" oninput="updatePrice()">
     </p>
 
     <p id="discountInfo" class="hint"></p>
+    <p id="limitInfo" class="warning"></p>
 
     <p><strong>Gesamtpreis: <span id="total">0.00</span> €</strong></p>
 
@@ -132,9 +181,20 @@
 </div>
 
 <script>
+  const MAX_QTY = 100;
   let price = 0;
   let product = "";
   let discount = 0;
+
+  function toggleDark() {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("darkMode",
+      document.body.classList.contains("dark"));
+  }
+
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark");
+  }
 
   function openPopup(name, p) {
     product = name;
@@ -150,19 +210,24 @@
   }
 
   function updatePrice() {
-    const qty = parseInt(document.getElementById("qty").value);
+    let qty = parseInt(document.getElementById("qty").value);
+    if (qty > MAX_QTY) qty = MAX_QTY;
+
     let total = qty * price;
     discount = 0;
 
     if (qty >= 10) {
-      discount = total * 0.10; // 10 % Rabatt
+      discount = total * 0.10;
       total -= discount;
       document.getElementById("discountInfo").innerText =
-        "🎉 10 % Mengenrabatt angewendet!";
+        "🎉 10 % Mengenrabatt aktiv";
     } else {
       document.getElementById("discountInfo").innerText =
         "Ab 10 Stück gibt es 10 % Rabatt";
     }
+
+    document.getElementById("limitInfo").innerText =
+      qty === MAX_QTY ? "⚠️ Maximale Bestellmenge: 100 Stück" : "";
 
     document.getElementById("total").innerText = total.toFixed(2);
   }
@@ -180,7 +245,7 @@
     );
 
     window.location.href =
-      "mailto:snackbar1303@hotmail.con?subject=" + subject + "&body=" + body;
+      "mailto:snackbar1303@hotmail.com?subject=" + subject + "&body=" + body;
   }
 </script>
 
