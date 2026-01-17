@@ -1,252 +1,233 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snackbar – Online Shop</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snackbar – Online Shop</title>
 
-  <style>
-    :root {
-      --bg: #f6f6f6;
-      --text: #222;
-      --card: #ffffff;
-      --header: #111;
-      --button: #000;
-      --button-hover: #333;
-      --overlay: rgba(0,0,0,0.6);
-    }
+<style>
+:root{
+  --bg:#f4f5f7;
+  --text:#222;
+  --card:rgba(255,255,255,0.85);
+  --accent:#7b2cbf;
+  --accent2:#c77dff;
+  --btn:#7b2cbf;
+}
+body.dark{
+  --bg:#0f0f14;
+  --text:#f1f1f1;
+  --card:rgba(30,30,40,0.85);
+  --btn:#c77dff;
+}
 
-    body.dark {
-      --bg: #121212;
-      --text: #f1f1f1;
-      --card: #1e1e1e;
-      --header: #000;
-      --button: #f1f1f1;
-      --button-hover: #ccc;
-      --overlay: rgba(0,0,0,0.8);
-    }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.3s;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.3s, color 0.3s;
-    }
+/* HEADER */
+header{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+  padding:50px 20px;
+  text-align:center;
+  position:relative;
+}
+header h1{font-size:2.4em;margin:0}
+header p{opacity:.9}
+.toggle{
+  position:absolute;
+  right:20px;
+  top:20px;
+  cursor:pointer;
+  font-size:1.4em;
+}
 
-    header {
-      background: var(--header);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-    }
+/* SHOP */
+main{
+  max-width:1100px;
+  margin:-40px auto 40px;
+  padding:0 20px;
+}
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+.card{
+  backdrop-filter:blur(10px);
+  background:var(--card);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+  display:flex;
+  flex-direction:column;
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+}
+.card img{
+  width:100%;
+  height:190px;
+  object-fit:contain;
+  margin-bottom:10px;
+}
+.badge{
+  align-self:flex-start;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+  padding:5px 12px;
+  border-radius:999px;
+  font-size:.8em;
+  margin-bottom:10px;
+}
+.price{
+  font-size:1.5em;
+  font-weight:700;
+  margin:10px 0;
+}
+button{
+  margin-top:auto;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+  border:none;
+  padding:14px;
+  border-radius:14px;
+  font-size:1em;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{opacity:.85}
 
-    .toggle {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      cursor: pointer;
-      font-size: 1.2em;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      transition: background 0.3s;
-    }
-
-    .price {
-      font-size: 1.4em;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-
-    button {
-      background: var(--button);
-      color: var(--bg);
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: var(--button-hover);
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--overlay);
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .popup {
-      background: var(--card);
-      padding: 25px;
-      border-radius: 12px;
-      width: 320px;
-      text-align: center;
-    }
-
-    input {
-      width: 80px;
-      padding: 5px;
-      font-size: 1em;
-      text-align: center;
-    }
-
-    .hint {
-      font-size: 0.9em;
-      opacity: 0.8;
-    }
-
-    .warning {
-      font-size: 0.9em;
-      color: #ff6b6b;
-    }
-  </style>
+/* POPUP */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.popup{
+  background:var(--card);
+  backdrop-filter:blur(12px);
+  padding:30px;
+  border-radius:20px;
+  width:320px;
+  text-align:center;
+}
+input{
+  width:90px;
+  padding:8px;
+  font-size:1em;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+.hint{font-size:.9em;opacity:.8}
+.warning{color:#ff6b6b;font-size:.9em}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>🍫 Snackbar</h1>
-  <p>Süßigkeiten einfach online bestellen</p>
-  <div class="toggle" onclick="toggleDark()">🌙</div>
+<h1>🍫 Snackbar</h1>
+<p>Dein moderner Süßigkeiten-Shop</p>
+<div class="toggle" onclick="toggleDark()">🌙</div>
 </header>
 
 <main>
-  <section class="products">
+<section class="products">
 
-    <div class="card">
-      <h2>Oreo Milka Tafel 300g</h2>
-      <p>Große Oreo-Milka-Schokoladentafel.</p>
-      <div class="price">4,00 €</div>
-      <button onclick="openPopup('Oreo Milka 300g', 4)">Bestellen</button>
-    </div>
+<div class="card">
+<span class="badge">🔥 Bestseller</span>
+<img src="images/oreo300.jpg">
+<h2>Oreo Milka 300g</h2>
+<p>Extra große Tafel mit cremiger Oreo-Füllung.</p>
+<div class="price">4,00 €</div>
+<button onclick="openPopup('Oreo Milka 300g',4)">Bestellen</button>
+</div>
 
-    <div class="card">
-      <h2>Oreo Milka Tafel 100g</h2>
-      <p>Klassische Oreo-Milka-Tafel.</p>
-      <div class="price">1,00 €</div>
-      <button onclick="openPopup('Oreo Milka 100g', 1)">Bestellen</button>
-    </div>
+<div class="card">
+<span class="badge">⭐ Deal</span>
+<img src="images/oreo100.jpg">
+<h2>Oreo Milka 100g</h2>
+<p>Klassischer Snack für zwischendurch.</p>
+<div class="price">1,00 €</div>
+<button onclick="openPopup('Oreo Milka 100g',1)">Bestellen</button>
+</div>
 
-    <div class="card">
-      <h2>Mentos Stange</h2>
-      <p>Frische Mentos Rolle.</p>
-      <div class="price">0,50 €</div>
-      <button onclick="openPopup('Mentos Stange', 0.5)">Bestellen</button>
-    </div>
+<div class="card">
+<img src="images/mentos.jpg">
+<h2>Mentos Stange</h2>
+<p>Frische Mentos im Rollenformat.</p>
+<div class="price">0,50 €</div>
+<button onclick="openPopup('Mentos Stange',0.5)">Bestellen</button>
+</div>
 
-  </section>
+</section>
 </main>
 
 <div class="overlay" id="overlay">
-  <div class="popup">
-    <h3 id="productName"></h3>
-
-    <p>
-      Anzahl:
-      <input type="number" id="qty" value="1" min="1" max="100" oninput="updatePrice()">
-    </p>
-
-    <p id="discountInfo" class="hint"></p>
-    <p id="limitInfo" class="warning"></p>
-
-    <p><strong>Gesamtpreis: <span id="total">0.00</span> €</strong></p>
-
-    <button onclick="sendMail()">Per E-Mail bestellen</button><br><br>
-    <button onclick="closePopup()">Abbrechen</button>
-  </div>
+<div class="popup">
+<h3 id="productName"></h3>
+<p>Anzahl:<br>
+<input type="number" id="qty" value="1" min="1" max="100" oninput="updatePrice()">
+</p>
+<p id="discountInfo" class="hint"></p>
+<p id="limitInfo" class="warning"></p>
+<p><strong>Gesamtpreis: <span id="total">0.00</span> €</strong></p>
+<button onclick="sendMail()">Jetzt bestellen</button><br><br>
+<button onclick="closePopup()">Abbrechen</button>
+</div>
 </div>
 
 <script>
-  const MAX_QTY = 100;
-  let price = 0;
-  let product = "";
-  let discount = 0;
+const MAX=100;
+let price=0,product="",discount=0;
 
-  function toggleDark() {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("darkMode",
-      document.body.classList.contains("dark"));
-  }
+function toggleDark(){
+ document.body.classList.toggle("dark");
+ localStorage.setItem("dark",document.body.classList.contains("dark"));
+}
+if(localStorage.getItem("dark")==="true")document.body.classList.add("dark");
 
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark");
-  }
-
-  function openPopup(name, p) {
-    product = name;
-    price = p;
-    document.getElementById("productName").innerText = name;
-    document.getElementById("qty").value = 1;
-    updatePrice();
-    document.getElementById("overlay").style.display = "flex";
-  }
-
-  function closePopup() {
-    document.getElementById("overlay").style.display = "none";
-  }
-
-  function updatePrice() {
-    let qty = parseInt(document.getElementById("qty").value);
-    if (qty > MAX_QTY) qty = MAX_QTY;
-
-    let total = qty * price;
-    discount = 0;
-
-    if (qty >= 10) {
-      discount = total * 0.10;
-      total -= discount;
-      document.getElementById("discountInfo").innerText =
-        "🎉 10 % Mengenrabatt aktiv";
-    } else {
-      document.getElementById("discountInfo").innerText =
-        "Ab 10 Stück gibt es 10 % Rabatt";
-    }
-
-    document.getElementById("limitInfo").innerText =
-      qty === MAX_QTY ? "⚠️ Maximale Bestellmenge: 100 Stück" : "";
-
-    document.getElementById("total").innerText = total.toFixed(2);
-  }
-
-  function sendMail() {
-    const qty = document.getElementById("qty").value;
-    const total = document.getElementById("total").innerText;
-
-    const subject = encodeURIComponent("Bestellung " + product);
-    const body = encodeURIComponent(
-      "Produkt: " + product +
-      "\nAnzahl: " + qty +
-      "\nRabatt: " + (discount > 0 ? "10 %" : "kein Rabatt") +
-      "\nGesamtpreis: " + total + " €"
-    );
-
-    window.location.href =
-      "mailto:snackbar1303@hotmail.com?subject=" + subject + "&body=" + body;
-  }
+function openPopup(n,p){
+ product=n; price=p;
+ qty.value=1;
+ updatePrice();
+ productName.innerText=n;
+ overlay.style.display="flex";
+}
+function closePopup(){overlay.style.display="none";}
+function updatePrice(){
+ let q=parseInt(qty.value);
+ if(q>MAX) q=MAX;
+ let total=q*price;
+ discount=0;
+ if(q>=10){
+  total*=0.9;
+  discountInfo.innerText="🎉 10 % Mengenrabatt aktiv";
+ } else discountInfo.innerText="Ab 10 Stück 10 % Rabatt";
+ limitInfo.innerText=q===MAX?"⚠️ Maximal 100 Stück":"";
+ document.getElementById("total").innerText=total.toFixed(2);
+}
+function sendMail(){
+ const subject=encodeURIComponent("Bestellung "+product);
+ const body=encodeURIComponent(
+  "Produkt: "+product+
+  "\nAnzahl: "+qty.value+
+  "\nGesamtpreis: "+total.innerText+" €"
+ );
+ location.href="mailto:DEINEEMAIL@gmail.com?subject="+subject+"&body="+body;
+}
 </script>
 
 </body>
