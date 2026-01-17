@@ -3,28 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snackbar – Online Shop</title>
+<title>Snackbar – Milka Shop</title>
 
 <style>
 :root{
-  --bg:#f4f5f7;
-  --text:#222;
-  --card:rgba(255,255,255,0.85);
-  --accent:#7b2cbf;
-  --accent2:#c77dff;
-  --btn:#7b2cbf;
+  --bg:#f5f3ff;
+  --text:#2b2b2b;
+  --card:#ffffff;
+  --milka:#7b2cbf;
+  --milka-light:#c77dff;
 }
 body.dark{
-  --bg:#0f0f14;
-  --text:#f1f1f1;
-  --card:rgba(30,30,40,0.85);
-  --btn:#c77dff;
+  --bg:#120a1f;
+  --text:#f1ecff;
+  --card:#1f1633;
 }
 
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Inter,Arial,Helvetica,sans-serif;
+  font-family:Inter,Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
   transition:.3s;
@@ -32,20 +30,18 @@ body{
 
 /* HEADER */
 header{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  background:linear-gradient(135deg,var(--milka),var(--milka-light));
   color:white;
   padding:50px 20px;
   text-align:center;
   position:relative;
 }
-header h1{font-size:2.4em;margin:0}
-header p{opacity:.9}
 .toggle{
   position:absolute;
   right:20px;
   top:20px;
-  cursor:pointer;
   font-size:1.4em;
+  cursor:pointer;
 }
 
 /* SHOP */
@@ -60,78 +56,66 @@ main{
   gap:25px;
 }
 .card{
-  backdrop-filter:blur(10px);
   background:var(--card);
-  border-radius:20px;
+  border-radius:22px;
   padding:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
   display:flex;
   flex-direction:column;
   transition:.3s;
 }
 .card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 30px 60px rgba(0,0,0,.25);
+  transform:translateY(-6px);
 }
 .card img{
   width:100%;
   height:190px;
   object-fit:contain;
-  margin-bottom:10px;
-}
-.badge{
-  align-self:flex-start;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white;
-  padding:5px 12px;
-  border-radius:999px;
-  font-size:.8em;
-  margin-bottom:10px;
 }
 .price{
   font-size:1.5em;
   font-weight:700;
-  margin:10px 0;
 }
 button{
-  margin-top:auto;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  background:linear-gradient(135deg,var(--milka),var(--milka-light));
   color:white;
   border:none;
   padding:14px;
-  border-radius:14px;
-  font-size:1em;
+  border-radius:16px;
   cursor:pointer;
-  transition:.3s;
-}
-button:hover{opacity:.85}
-
-/* POPUP */
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
-.popup{
-  background:var(--card);
-  backdrop-filter:blur(12px);
-  padding:30px;
-  border-radius:20px;
-  width:320px;
-  text-align:center;
-}
-input{
-  width:90px;
-  padding:8px;
   font-size:1em;
-  border-radius:10px;
-  border:1px solid #ccc;
 }
-.hint{font-size:.9em;opacity:.8}
-.warning{color:#ff6b6b;font-size:.9em}
+
+/* CART */
+.cart{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:var(--card);
+  width:320px;
+  border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+  padding:20px;
+}
+.cart h3{margin-top:0}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:.9em;
+}
+.cart-item button{
+  padding:4px 8px;
+  font-size:.8em;
+}
+.total{
+  font-weight:bold;
+  margin-top:10px;
+}
+.small{
+  font-size:.85em;
+  opacity:.8;
+}
 </style>
 </head>
 
@@ -139,7 +123,7 @@ input{
 
 <header>
 <h1>🍫 Snackbar</h1>
-<p>Dein moderner Süßigkeiten-Shop</p>
+<p>Milka-Style Süßigkeiten Shop</p>
 <div class="toggle" onclick="toggleDark()">🌙</div>
 </header>
 
@@ -147,51 +131,43 @@ input{
 <section class="products">
 
 <div class="card">
-<span class="badge">🔥 Bestseller</span>
 <img src="images/oreo300.jpg">
 <h2>Oreo Milka 300g</h2>
-<p>Extra große Tafel mit cremiger Oreo-Füllung.</p>
+<p>Extra große Tafel.</p>
 <div class="price">4,00 €</div>
-<button onclick="openPopup('Oreo Milka 300g',4)">Bestellen</button>
+<button onclick="addToCart('Oreo Milka 300g',4)">In den Warenkorb</button>
 </div>
 
 <div class="card">
-<span class="badge">⭐ Deal</span>
 <img src="images/oreo100.jpg">
 <h2>Oreo Milka 100g</h2>
-<p>Klassischer Snack für zwischendurch.</p>
+<p>Klassischer Snack.</p>
 <div class="price">1,00 €</div>
-<button onclick="openPopup('Oreo Milka 100g',1)">Bestellen</button>
+<button onclick="addToCart('Oreo Milka 100g',1)">In den Warenkorb</button>
 </div>
 
 <div class="card">
 <img src="images/mentos.jpg">
 <h2>Mentos Stange</h2>
-<p>Frische Mentos im Rollenformat.</p>
+<p>Frisch & lecker.</p>
 <div class="price">0,50 €</div>
-<button onclick="openPopup('Mentos Stange',0.5)">Bestellen</button>
+<button onclick="addToCart('Mentos Stange',0.5)">In den Warenkorb</button>
 </div>
 
 </section>
 </main>
 
-<div class="overlay" id="overlay">
-<div class="popup">
-<h3 id="productName"></h3>
-<p>Anzahl:<br>
-<input type="number" id="qty" value="1" min="1" max="100" oninput="updatePrice()">
-</p>
-<p id="discountInfo" class="hint"></p>
-<p id="limitInfo" class="warning"></p>
-<p><strong>Gesamtpreis: <span id="total">0.00</span> €</strong></p>
-<button onclick="sendMail()">Jetzt bestellen</button><br><br>
-<button onclick="closePopup()">Abbrechen</button>
-</div>
+<div class="cart">
+<h3>🛒 Warenkorb</h3>
+<div id="cartItems"></div>
+<div class="total">Gesamt: <span id="total">0.00</span> €</div>
+<p class="small">Ab 10 Stück → 10 % Rabatt</p>
+<button onclick="checkout()">Bestellen per E-Mail</button>
 </div>
 
 <script>
+let cart=JSON.parse(localStorage.getItem("cart"))||{};
 const MAX=100;
-let price=0,product="",discount=0;
 
 function toggleDark(){
  document.body.classList.toggle("dark");
@@ -199,35 +175,52 @@ function toggleDark(){
 }
 if(localStorage.getItem("dark")==="true")document.body.classList.add("dark");
 
-function openPopup(n,p){
- product=n; price=p;
- qty.value=1;
- updatePrice();
- productName.innerText=n;
- overlay.style.display="flex";
+function addToCart(name,price){
+ if(!cart[name]) cart[name]={qty:0,price};
+ if(cart[name].qty<MAX) cart[name].qty++;
+ save();
 }
-function closePopup(){overlay.style.display="none";}
-function updatePrice(){
- let q=parseInt(qty.value);
- if(q>MAX) q=MAX;
- let total=q*price;
- discount=0;
- if(q>=10){
-  total*=0.9;
-  discountInfo.innerText="🎉 10 % Mengenrabatt aktiv";
- } else discountInfo.innerText="Ab 10 Stück 10 % Rabatt";
- limitInfo.innerText=q===MAX?"⚠️ Maximal 100 Stück":"";
+
+function save(){
+ localStorage.setItem("cart",JSON.stringify(cart));
+ render();
+}
+
+function render(){
+ let html="",totalQty=0,total=0;
+ for(let k in cart){
+  const i=cart[k];
+  totalQty+=i.qty;
+  total+=i.qty*i.price;
+  html+=`
+   <div class="cart-item">
+    ${k} (${i.qty})
+    <span>
+     <button onclick="change('${k}',-1)">−</button>
+     <button onclick="change('${k}',1)">+</button>
+    </span>
+   </div>`;
+ }
+ if(totalQty>=10) total*=0.9;
+ document.getElementById("cartItems").innerHTML=html||"<p>Leer</p>";
  document.getElementById("total").innerText=total.toFixed(2);
 }
-function sendMail(){
- const subject=encodeURIComponent("Bestellung "+product);
- const body=encodeURIComponent(
-  "Produkt: "+product+
-  "\nAnzahl: "+qty.value+
-  "\nGesamtpreis: "+total.innerText+" €"
- );
- location.href="mailto:DEINEEMAIL@gmail.com?subject="+subject+"&body="+body;
+function change(k,d){
+ cart[k].qty+=d;
+ if(cart[k].qty<=0) delete cart[k];
+ save();
 }
+
+function checkout(){
+ let text="Bestellung Snackbar:%0A";
+ for(let k in cart){
+  text+=`${k} x${cart[k].qty}%0A`;
+ }
+ text+=`Gesamtpreis: ${document.getElementById("total").innerText} €`;
+ location.href="mailto:DEINEEMAIL@gmail.com?subject=Bestellung Snackbar&body="+text;
+}
+
+render();
 </script>
 
 </body>
