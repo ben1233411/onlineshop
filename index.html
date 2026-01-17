@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Snackbar – Online Shop</title>
+
   <style>
     body {
       margin: 0;
@@ -17,7 +18,6 @@
       padding: 20px;
       text-align: center;
     }
-    header h1 { margin: 0; }
     main {
       max-width: 1000px;
       margin: 40px auto;
@@ -36,35 +36,41 @@
       display: flex;
       flex-direction: column;
     }
-    .card h2 {
-      margin-top: 0;
-    }
     .price {
       font-size: 1.4em;
       font-weight: bold;
       margin: 10px 0;
     }
-    .buy {
-      margin-top: auto;
-      text-align: center;
-    }
-    .buy a {
-      display: inline-block;
-      background: #000;
+    button {
+      background: black;
       color: white;
-      text-decoration: none;
-      padding: 12px 20px;
+      border: none;
+      padding: 12px;
       border-radius: 8px;
-      transition: background 0.2s;
+      cursor: pointer;
     }
-    .buy a:hover {
-      background: #333;
+    button:hover { background: #333; }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
     }
-    footer {
-      background: #eee;
-      padding: 20px;
+    .popup {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 300px;
       text-align: center;
-      font-size: 0.9em;
+    }
+    input {
+      width: 60px;
+      padding: 5px;
+      font-size: 1em;
+      text-align: center;
     }
   </style>
 </head>
@@ -80,38 +86,82 @@
 
     <div class="card">
       <h2>Oreo Milka Tafel 300g</h2>
-      <p>Große Oreo-Milka-Schokoladentafel mit cremiger Füllung.</p>
+      <p>Große Oreo-Milka-Schokoladentafel.</p>
       <div class="price">4,00 €</div>
-      <div class="buy">
-        <a href="mailto:snackbar1303@hotmail.com?subject=Bestellung Oreo Milka 300g&body=Ich möchte die Oreo Milka Tafel 300g für 4,00 € bestellen.">Jetzt per E-Mail bestellen</a>
-      </div>
+      <button onclick="openPopup('Oreo Milka 300g', 4)">Bestellen</button>
     </div>
 
     <div class="card">
       <h2>Oreo Milka Tafel 100g</h2>
-      <p>Klassische Oreo-Milka-Tafel in handlicher Größe.</p>
+      <p>Klassische Oreo-Milka-Tafel.</p>
       <div class="price">1,00 €</div>
-      <div class="buy">
-        <a href="mailto:snackbar1303@hotmail.com?subject=Bestellung Oreo Milka 100g&body=Ich möchte die Oreo Milka Tafel 100g für 1,00 € bestellen.">Jetzt per E-Mail bestellen</a>
-      </div>
+      <button onclick="openPopup('Oreo Milka 100g', 1)">Bestellen</button>
     </div>
 
     <div class="card">
       <h2>Mentos Stange</h2>
-      <p>Frische Mentos im klassischen Rollenformat.</p>
+      <p>Frische Mentos Rolle.</p>
       <div class="price">0,50 €</div>
-      <div class="buy">
-        <a href="mailto:snackbar1303@hotmail.com?subject=Bestellung Mentos&body=Ich möchte eine Mentos Stange für 0,50 € bestellen.">Jetzt per E-Mail bestellen</a>
-      </div>
+      <button onclick="openPopup('Mentos Stange', 0.5)">Bestellen</button>
     </div>
 
   </section>
 </main>
 
-<footer>
-  <p>© 2026 Snackbar</p>
-  <p>Bestellungen per E-Mail • Kein Mindestbestellwert</p>
-</footer>
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <h3 id="productName"></h3>
+
+    <p>
+      Anzahl:
+      <input type="number" id="qty" value="1" min="1" oninput="updatePrice()">
+    </p>
+
+    <p><strong>Gesamtpreis: <span id="total">0.00</span> €</strong></p>
+
+    <button onclick="sendMail()">Per E-Mail bestellen</button><br><br>
+    <button onclick="closePopup()">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+  let price = 0;
+  let product = "";
+
+  function openPopup(name, p) {
+    product = name;
+    price = p;
+    document.getElementById("productName").innerText = name;
+    document.getElementById("qty").value = 1;
+    updatePrice();
+    document.getElementById("overlay").style.display = "flex";
+  }
+
+  function closePopup() {
+    document.getElementById("overlay").style.display = "none";
+  }
+
+  function updatePrice() {
+    const qty = document.getElementById("qty").value;
+    document.getElementById("total").innerText =
+      (qty * price).toFixed(2);
+  }
+
+  function sendMail() {
+    const qty = document.getElementById("qty").value;
+    const total = (qty * price).toFixed(2);
+
+    const subject = encodeURIComponent("Bestellung " + product);
+    const body = encodeURIComponent(
+      "Produkt: " + product +
+      "\nAnzahl: " + qty +
+      "\nGesamtpreis: " + total + " €"
+    );
+
+    window.location.href =
+      "mailto:DEINEEMAIL@gmail.com?subject=" + subject + "&body=" + body;
+  }
+</script>
 
 </body>
 </html>
