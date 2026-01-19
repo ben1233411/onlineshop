@@ -28,13 +28,17 @@ body{
   transition:.3s;
 }
 
-/* HEADER – OHNE ANIMATION */
+/* HEADER – IN DEN HINTERGRUND */
 header{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:white;
-  padding:70px 20px 70px;
+  padding:70px 20px 100px;
   text-align:center;
-  position:relative;
+  position:absolute;   /* Header wird absolut positioniert */
+  top:0;
+  left:0;
+  width:100%;
+  z-index:0;           /* Header nach hinten */
 }
 header h1{margin:0;font-size:2.7em}
 header p{opacity:.9}
@@ -54,6 +58,8 @@ main{
   max-width:1200px;
   margin:-70px auto 40px;
   padding:0 20px;
+  position:relative;   /* Main vor dem Header */
+  z-index:1;
 }
 .products{
   display:grid;
