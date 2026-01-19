@@ -44,6 +44,10 @@ header::after{
   background:inherit;
   animation:headerFade .8s ease forwards;
 }
+@keyframes headerFade{
+  from{opacity:0;transform:translateY(-25px)}
+  to{opacity:1;transform:none}
+}
 header h1{margin:0;font-size:2.7em}
 header p{opacity:.9}
 .toggle{
@@ -151,7 +155,7 @@ input{
 
 <header>
 <h1>🍫 Snackbar</h1>
-<p>Die Schulsnackbar</p>
+<p>Dein moderner Süßigkeiten-Shop</p>
 <div class="toggle" onclick="toggleDark()">🌙</div>
 </header>
 
@@ -161,7 +165,7 @@ input{
 <div class="card">
 <img src="images/oreo300.jpg">
 <h2>Oreo Milka 300g</h2>
-<p></p>
+<p>Extra große Tafel mit cremiger Oreo-Füllung.</p>
 <div class="price">4,00 €</div>
 <button onclick="openPopup('Oreo Milka 300g',4)">Bestellen</button>
 </div>
@@ -169,7 +173,7 @@ input{
 <div class="card">
 <img src="images/oreo100.jpg">
 <h2>Oreo Milka 100g</h2>
-<p></p>
+<p>Klassischer Snack für zwischendurch.</p>
 <div class="price">1,00 €</div>
 <button onclick="openPopup('Oreo Milka 100g',1)">Bestellen</button>
 </div>
@@ -177,7 +181,7 @@ input{
 <div class="card">
 <img src="images/mentos.jpg">
 <h2>Mentos Stange</h2>
-<p></p>
+<p>Frisch & knackig.</p>
 <div class="price">0,50 €</div>
 <button onclick="openPopup('Mentos Stange',0.5)">Bestellen</button>
 </div>
@@ -185,7 +189,7 @@ input{
 <div class="card">
 <img src="images/oreo-double.jpg">
 <h2>Oreo Double Creme</h2>
-<p></p>
+<p>Extra viel Creme für echte Oreo-Fans.</p>
 <div class="price">1,50 €</div>
 <button onclick="openPopup('Oreo Double Creme',1.5)">Bestellen</button>
 </div>
@@ -193,7 +197,7 @@ input{
 <div class="card">
 <img src="images/oreo-4pack.jpg">
 <h2>Oreo 4er Pack</h2>
-<p></p>
+<p>Vier Oreo-Kekse zum kleinen Preis.</p>
 <div class="price">0,50 €</div>
 <button onclick="openPopup('Oreo 4er Pack',0.5)">Bestellen</button>
 </div>
