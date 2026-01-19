@@ -28,45 +28,32 @@ body{
   transition:.3s;
 }
 
-/* HEADER (FIXED ANIMATION) */
+/* HEADER – OHNE ANIMATION */
 header{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:white;
   padding:70px 20px 100px;
   text-align:center;
   position:relative;
-  overflow:hidden;
-}
-header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:inherit;
-  animation:headerFade .8s ease forwards;
-}
-@keyframes headerFade{
-  from{opacity:0;transform:translateY(0px)}
-  to{opacity:1;transform:none}
 }
 header h1{margin:0;font-size:2.7em}
 header p{opacity:.9}
+
 .toggle{
   position:absolute;
   top:20px;
   right:20px;
   cursor:pointer;
   font-size:1.4em;
-  transition:.4s;
+  transition:.3s;
 }
-.toggle:hover{transform:rotate(20deg) scale(1.1)}
+.toggle:hover{transform:scale(1.1)}
 
 /* SHOP */
 main{
   max-width:1200px;
   margin:-70px auto 40px;
   padding:0 20px;
-  position:relative;
-  z-index:2;
 }
 .products{
   display:grid;
@@ -82,24 +69,21 @@ main{
   box-shadow:0 12px 35px rgba(0,0,0,.18);
   display:flex;
   flex-direction:column;
-  transition:transform .35s cubic-bezier(.4,0,.2,1),
-             box-shadow .35s ease;
+  transition:.3s;
 }
 .card:hover{
-  transform:translateY(-10px) scale(1.02);
+  transform:translateY(-8px);
   box-shadow:0 30px 70px rgba(0,0,0,.35);
 }
 .card img{
   width:100%;
   height:180px;
   object-fit:contain;
-  transition:transform .4s ease;
 }
-.card:hover img{transform:scale(1.08)}
 .price{
   font-size:1.4em;
   font-weight:700;
-  margin:10px 0;
+  margin:12px 0;
 }
 
 /* BUTTON */
@@ -112,9 +96,9 @@ button{
   cursor:pointer;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:white;
-  transition:transform .15s ease, box-shadow .3s ease;
+  transition:.2s;
 }
-button:hover{box-shadow:0 0 25px rgba(199,125,255,.6)}
+button:hover{opacity:.9}
 button:active{transform:scale(.96)}
 
 /* POPUP */
@@ -125,20 +109,14 @@ button:active{transform:scale(.96)}
   display:none;
   justify-content:center;
   align-items:center;
-  animation:fadeIn .3s ease forwards;
 }
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .popup{
   background:var(--card);
   padding:30px;
   border-radius:22px;
   width:320px;
   text-align:center;
-  transform:scale(.85);
-  opacity:0;
-  animation:popupIn .35s cubic-bezier(.4,0,.2,1) forwards;
 }
-@keyframes popupIn{to{transform:scale(1);opacity:1}}
 
 input{
   width:90px;
@@ -165,7 +143,6 @@ input{
 <div class="card">
 <img src="images/oreo300.jpg">
 <h2>Oreo Milka 300g</h2>
-<p>Extra große Tafel mit cremiger Oreo-Füllung.</p>
 <div class="price">4,00 €</div>
 <button onclick="openPopup('Oreo Milka 300g',4)">Bestellen</button>
 </div>
@@ -173,7 +150,6 @@ input{
 <div class="card">
 <img src="images/oreo100.jpg">
 <h2>Oreo Milka 100g</h2>
-<p>Klassischer Snack für zwischendurch.</p>
 <div class="price">1,00 €</div>
 <button onclick="openPopup('Oreo Milka 100g',1)">Bestellen</button>
 </div>
@@ -181,7 +157,6 @@ input{
 <div class="card">
 <img src="images/mentos.jpg">
 <h2>Mentos Stange</h2>
-<p>Frisch & knackig.</p>
 <div class="price">0,50 €</div>
 <button onclick="openPopup('Mentos Stange',0.5)">Bestellen</button>
 </div>
@@ -189,7 +164,6 @@ input{
 <div class="card">
 <img src="images/oreo-double.jpg">
 <h2>Oreo Double Creme</h2>
-<p>Extra viel Creme für echte Oreo-Fans.</p>
 <div class="price">1,50 €</div>
 <button onclick="openPopup('Oreo Double Creme',1.5)">Bestellen</button>
 </div>
@@ -197,7 +171,6 @@ input{
 <div class="card">
 <img src="images/oreo-4pack.jpg">
 <h2>Oreo 4er Pack</h2>
-<p>Vier Oreo-Kekse zum kleinen Preis.</p>
 <div class="price">0,50 €</div>
 <button onclick="openPopup('Oreo 4er Pack',0.5)">Bestellen</button>
 </div>
@@ -259,7 +232,7 @@ function sendMail(){
   "\nGesamtpreis: "+total.innerText+" €"
  );
  window.location.href=
-  "mailto:snackbar1303@hotmail.com?subject="+subject+"&body="+body;
+  "mailto:DEINEEMAIL@gmail.com?subject="+subject+"&body="+body;
 }
 </script>
 
