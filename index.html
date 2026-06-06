@@ -3,28 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snackbar – Online Shop</title>
+<title>Mein Online-Shop</title>
 
 <style>
-:root{
-  --bg:#f4f5f7;
-  --text:#222;
-  --card:rgba(255,255,255,0.92);
-  --accent:#7b2cbf;
-  --accent2:#c77dff;
-}
-body.dark{
-  --bg:#0f0f14;
-  --text:#f1f1f1;
-  --card:rgba(30,30,40,0.92);
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
-*{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Inter,Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+    background:#f4f4f4;
+}
+
+header{
+    background:#111;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.search-box{
+    max-width:500px;
+    margin:20px auto;
+}
+
+.search-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.product{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.product img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:15px;
+}
+
+.price{
+    color:green;
+    font-size:22px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#007bff;
+    color:white;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.cart{
+    position:fixed;
+    right:20px;
+    top:20px;
+    background:white;
+    width:300px;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+    max-height:500px;
+    overflow:auto;
+}
+
+.cart h2{
+    margin-bottom:10px;
+}
+
+.cart-item{
+    margin-bottom:8px;
+    border-bottom:1px solid #ddd;
+    padding-bottom:5px;
+}
+
+.total{
+    margin-top:10px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.empty{
+    color:gray;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Mein Online-Shop</h1>
+</header>
+
+<div class="search-box">
+    <input type="text" id="search" placeholder="Produkte suchen...">
+</div>
+
+<div class="cart">
+    <h2>🛒 Warenkorb (<span id="count">0</span>)</h2>
+    <div id="cartItems">
+        <p class="empty">Warenkorb leer</p>
+    </div>
+    <div class="total">
+        Gesamt: <span id="total">0.00</span> €
+    </div>
+</div>
+
+<section class="products" id="products">
+
+    <div class="product">
+        <img src="https://via.placeholder.com/400x250?text=Gaming+Maus">
+        <div class="product-info">
+            <h3>Gaming Maus</h3>
+            <div class="price">29.99 €</div>
+            <button onclick="addToCart('Gaming Maus',29.99)">
+                In den Warenkorb
+            </button>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="https://via.placeholder.com/400x250?text=Kopfhörer">
+        <div class="product-info">
+            <h3>Kopfhörer</h3>
+            <div class="price">49.99 €</div>
+            <button onclick="addToCart('Kopfhörer',49.99)">
+                In den Warenkorb
+            </button>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="https://via.placeholder.com/400x250?text=Tastatur">
+        <div class="product-info">
+            <h3>Tastatur</h3>
+            <div class="price">79.99 €</div>
+            <button onclick="addToCart('Tastatur',79.99)">
+                In den Warenkorb
+            </button>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="https://via.placeholder.com/400x250?text=Monitor">
+        <div class="product-info">
+            <h3>Monitor</h3>
+            <div class="price">199.99 €</div>
+            <button onclick="addToCart('Monitor',199.99)">
+                In den Warenkorb
+            </button>
+        </div>
+    </div>
+
+</section>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price){
+
+    cart.push({name, price});
+    total += price;
+
+    document.getElementById("count").innerText = cart.length;
+    document.getElementById("total").innerText = total.toFixed(2);
+
+    let cartItems = document.getElementById("cartItems");
+
+    if(cart.length === 1){
+        cartItems.innerHTML = "";
+    }
+
+    let item = document.createElement("div");
+    item.classList.add("cart-item");
+    item.innerHTML = `${name} - ${price.toFixed(2)} €`;
+
+    cartItems.appendChild(item);
+}
+
+document.getElementById("search").addEventListener("keyup", function(){
+
+    let value = this.value.toLowerCase();
+    let products = document.querySelectorAll(".product");
+
+    products.forEach(product => {
+
+        let text = product.innerText.toLowerCase();
+
+        if(text.includes(value)){
+            product.style.display = "block";
+        } else {
+            product.style.display = "none";
+        }
+
+    });
+});
+</script>
+
+</body>
+</html>
   transition:.3s;
 }
 
