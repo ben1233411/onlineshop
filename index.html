@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mein Online-Shop</title>
+<title>Holz & Tischplatten Manufaktur</title>
 
 <style>
 *{
@@ -14,61 +14,54 @@
 
 body{
     font-family:Arial,sans-serif;
-    background:#f4f4f4;
+    background:#f5f1e8;
+    color:#3f3426;
 }
 
 header{
-    background:#222;
+    background:#6b8e23;
     color:white;
     text-align:center;
-    padding:20px;
+    padding:30px;
+}
+
+header h1{
+    margin-bottom:10px;
 }
 
 .info-box{
     max-width:1000px;
-    margin:20px auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-.search-box{
-    text-align:center;
-    margin:20px;
-}
-
-.search-box input{
-    width:80%;
-    max-width:500px;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
+    margin:25px auto;
+    background:#fffaf0;
+    padding:25px;
+    border-radius:12px;
+    border-left:6px solid #6b8e23;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
 .cart{
-    background:white;
+    background:#fffaf0;
     max-width:1000px;
-    margin:20px auto;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    margin:25px auto;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
 .products{
     max-width:1200px;
     margin:auto;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:20px;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+    padding:25px;
 }
 
 .product{
-    background:white;
-    border-radius:10px;
+    background:#fffaf0;
+    border-radius:15px;
     overflow:hidden;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
     text-align:center;
 }
 
@@ -79,68 +72,70 @@ header{
 }
 
 .product-info{
-    padding:15px;
+    padding:20px;
+}
+
+.product-info h3{
+    margin-bottom:10px;
 }
 
 .price{
-    color:green;
-    font-size:22px;
-    margin:10px 0;
+    color:#556b2f;
+    font-size:24px;
     font-weight:bold;
+    margin:10px 0;
 }
 
 .cart-btn{
-    padding:8px 15px;
+    padding:10px 18px;
     border:none;
-    background:#007bff;
+    background:#6b8e23;
     color:white;
-    border-radius:5px;
+    border-radius:6px;
     cursor:pointer;
     font-size:14px;
-    margin:5px;
 }
 
 .cart-btn:hover{
-    background:#0056b3;
+    background:#556b2f;
 }
 
 .remove-btn{
-    background:#dc3545;
+    background:#a52a2a;
 }
 
 .remove-btn:hover{
-    background:#b02a37;
+    background:#7a1f1f;
 }
 
 .cart-item{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin:10px 0;
-    padding:10px;
+    padding:10px 0;
     border-bottom:1px solid #ddd;
 }
 
 .total{
-    font-size:22px;
-    margin-top:15px;
+    font-size:24px;
     font-weight:bold;
+    margin-top:20px;
 }
 
 textarea{
     width:100%;
     height:120px;
-    padding:10px;
-    border:1px solid #ccc;
+    padding:12px;
     border-radius:8px;
-    resize:vertical;
+    border:1px solid #ccc;
+    margin-top:10px;
 }
 
 footer{
     text-align:center;
-    background:#222;
+    background:#6b8e23;
     color:white;
-    padding:20px;
+    padding:25px;
     margin-top:30px;
 }
 </style>
@@ -148,21 +143,24 @@ footer{
 <body>
 
 <header>
-    <h1>🛒 Mein Online-Shop</h1>
+    <h1>🌳 Holz & Tischplatten Manufaktur</h1>
+    <p>Handgefertigte Tischplatten und Holzprodukte</p>
 </header>
 
 <div class="info-box">
-    <h2>Willkommen in unserem Online-Shop</h2>
+    <h2>Willkommen in unserem Shop</h2>
+
+    <br>
 
     <p>
-        Hier findest du unsere Produkte und Tischplatten.
+        Wir fertigen hochwertige Tischplatten und Holzprodukte mit viel Liebe zum Detail.
     </p>
 
     <br>
 
     <p>
         <strong>Wichtiger Hinweis:</strong><br>
-        Große Tischplatten können nicht versendet werden und müssen persönlich abgeholt werden.
+        Große Tischplatten müssen aufgrund ihrer Größe persönlich abgeholt werden.
     </p>
 
     <br>
@@ -179,17 +177,11 @@ footer{
     </p>
 </div>
 
-<div class="search-box">
-    <input
-        type="text"
-        id="search"
-        placeholder="Produkt suchen..."
-        onkeyup="searchProducts()">
-</div>
-
 <div class="cart">
 
-    <h2>Warenkorb (<span id="cartCount">0</span>)</h2>
+    <h2>🛒 Warenkorb (<span id="cartCount">0</span>)</h2>
+
+    <br>
 
     <div id="cartItems"></div>
 
@@ -217,52 +209,52 @@ footer{
 <section class="products">
 
     <div class="product">
-        <img src="https://via.placeholder.com/400x300?text=Produkt+1">
+        <img src="https://via.placeholder.com/600x400?text=Tischplatte+Rustikal">
         <div class="product-info">
-            <h3>Produkt 1</h3>
-            <div class="price">29.99 €</div>
+            <h3>Rustikale Tischplatte</h3>
+            <div class="price">299.99 €</div>
 
             <button class="cart-btn"
-                onclick="addToCart('Produkt 1',29.99)">
+                onclick="addToCart('Rustikale Tischplatte',299.99)">
                 In den Warenkorb
             </button>
         </div>
     </div>
 
     <div class="product">
-        <img src="https://via.placeholder.com/400x300?text=Produkt+2">
+        <img src="https://via.placeholder.com/600x400?text=Eichenplatte">
         <div class="product-info">
-            <h3>Produkt 2</h3>
-            <div class="price">49.99 €</div>
+            <h3>Eichen Tischplatte</h3>
+            <div class="price">399.99 €</div>
 
             <button class="cart-btn"
-                onclick="addToCart('Produkt 2',49.99)">
+                onclick="addToCart('Eichen Tischplatte',399.99)">
                 In den Warenkorb
             </button>
         </div>
     </div>
 
     <div class="product">
-        <img src="https://via.placeholder.com/400x300?text=Produkt+3">
+        <img src="https://via.placeholder.com/600x400?text=Holzregal">
         <div class="product-info">
-            <h3>Produkt 3</h3>
-            <div class="price">79.99 €</div>
+            <h3>Massivholz Regal</h3>
+            <div class="price">149.99 €</div>
 
             <button class="cart-btn"
-                onclick="addToCart('Produkt 3',79.99)">
+                onclick="addToCart('Massivholz Regal',149.99)">
                 In den Warenkorb
             </button>
         </div>
     </div>
 
     <div class="product">
-        <img src="https://via.placeholder.com/400x300?text=Produkt+4">
+        <img src="https://via.placeholder.com/600x400?text=Holzbank">
         <div class="product-info">
-            <h3>Produkt 4</h3>
-            <div class="price">99.99 €</div>
+            <h3>Holzbank</h3>
+            <div class="price">199.99 €</div>
 
             <button class="cart-btn"
-                onclick="addToCart('Produkt 4',99.99)">
+                onclick="addToCart('Holzbank',199.99)">
                 In den Warenkorb
             </button>
         </div>
@@ -271,7 +263,7 @@ footer{
 </section>
 
 <footer>
-    © 2026 Mein Online-Shop
+    © 2026 Holz & Tischplatten Manufaktur
 </footer>
 
 <script>
@@ -285,14 +277,12 @@ function addToCart(name, price){
     });
 
     total += price;
-
     updateCart();
 }
 
 function removeItem(index){
     total -= cart[index].price;
     cart.splice(index,1);
-
     updateCart();
 }
 
@@ -307,7 +297,6 @@ function updateCart(){
 
         cartItems.innerHTML += `
         <div class="cart-item">
-
             <div>
                 ${item.name} -
                 ${item.price.toFixed(2)} €
@@ -318,39 +307,15 @@ function updateCart(){
                 onclick="removeItem(${index})">
                 Entfernen
             </button>
-
         </div>
         `;
     });
 
-    document.getElementById("cartCount")
-        .innerText = cart.length;
+    document.getElementById("cartCount").innerText =
+        cart.length;
 
-    document.getElementById("total")
-        .innerText = total.toFixed(2);
-}
-
-function searchProducts(){
-
-    let input =
-        document.getElementById("search")
-        .value.toLowerCase();
-
-    let products =
-        document.querySelectorAll(".product");
-
-    products.forEach(product => {
-
-        let name =
-            product.querySelector("h3")
-            .innerText.toLowerCase();
-
-        if(name.includes(input)){
-            product.style.display = "block";
-        }else{
-            product.style.display = "none";
-        }
-    });
+    document.getElementById("total").innerText =
+        total.toFixed(2);
 }
 
 function checkout(){
@@ -369,31 +334,32 @@ function checkout(){
     cart.forEach(item => {
 
         orderText +=
-            item.name +
-            " - " +
-            item.price.toFixed(2) +
-            " €%0D%0A";
+        item.name +
+        " - " +
+        item.price.toFixed(2) +
+        " €%0D%0A";
     });
 
     orderText +=
-        "%0D%0A--------------------%0D%0A";
+    "%0D%0A--------------------%0D%0A";
 
     orderText +=
-        "Gesamt: " +
-        total.toFixed(2) +
-        " €%0D%0A%0D%0A";
+    "Gesamt: " +
+    total.toFixed(2) +
+    " €%0D%0A%0D%0A";
 
     orderText +=
-        "Extra Wünsche:%0D%0A" +
-        encodeURIComponent(wishes);
+    "Extra Wünsche:%0D%0A" +
+    encodeURIComponent(wishes);
 
     window.location.href =
-        "mailto:ben.klosterfelde@hotmail.com" +
-        "?subject=Neue Bestellung" +
-        "&body=" +
-        orderText;
+    "mailto:ben.klosterfelde@hotmail.com" +
+    "?subject=Neue Bestellung" +
+    "&body=" +
+    orderText;
 }
 </script>
 
 </body>
+
 </html>
