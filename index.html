@@ -81,7 +81,6 @@ header{
 }
 
 .cart-btn{
-    width:auto;
     padding:8px 15px;
     border:none;
     background:#007bff;
@@ -89,16 +88,28 @@ header{
     border-radius:5px;
     cursor:pointer;
     font-size:14px;
+    margin:5px;
 }
 
 .cart-btn:hover{
     background:#0056b3;
 }
 
+.remove-btn{
+    background:#dc3545;
+}
+
+.remove-btn:hover{
+    background:#b02a37;
+}
+
 .cart-item{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     margin:10px 0;
+    padding:10px;
+    border-bottom:1px solid #ddd;
 }
 
 .total{
@@ -138,6 +149,12 @@ footer{
     <div class="total">
         Gesamt: <span id="total">0.00</span> €
     </div>
+
+    <br>
+
+    <button class="cart-btn" onclick="checkout()">
+        Bestellung absenden
+    </button>
 </div>
 
 <section class="products">
@@ -148,7 +165,7 @@ footer{
             <h3>Gaming Maus</h3>
             <div class="price">29.99 €</div>
             <button class="cart-btn"
-                    onclick="addToCart('Gaming Maus',29.99)">
+                onclick="addToCart('Gaming Maus',29.99)">
                 In den Warenkorb
             </button>
         </div>
@@ -160,7 +177,7 @@ footer{
             <h3>Mechanische Tastatur</h3>
             <div class="price">79.99 €</div>
             <button class="cart-btn"
-                    onclick="addToCart('Mechanische Tastatur',79.99)">
+                onclick="addToCart('Mechanische Tastatur',79.99)">
                 In den Warenkorb
             </button>
         </div>
@@ -172,7 +189,7 @@ footer{
             <h3>Kopfhörer</h3>
             <div class="price">49.99 €</div>
             <button class="cart-btn"
-                    onclick="addToCart('Kopfhörer',49.99)">
+                onclick="addToCart('Kopfhörer',49.99)">
                 In den Warenkorb
             </button>
         </div>
@@ -184,7 +201,7 @@ footer{
             <h3>Monitor</h3>
             <div class="price">199.99 €</div>
             <button class="cart-btn"
-                    onclick="addToCart('Monitor',199.99)">
+                onclick="addToCart('Monitor',199.99)">
                 In den Warenkorb
             </button>
         </div>
@@ -201,14 +218,18 @@ let cart = [];
 let total = 0;
 
 function addToCart(name, price){
-
     cart.push({
         name:name,
         price:price
     });
 
     total += price;
+    updateCart();
+}
 
+function removeItem(index){
+    total -= cart[index].price;
+    cart.splice(index,1);
     updateCart();
 }
 
@@ -219,12 +240,20 @@ function updateCart(){
 
     cartItems.innerHTML = "";
 
-    cart.forEach(item => {
+    cart.forEach((item,index)=>{
 
         cartItems.innerHTML += `
             <div class="cart-item">
-                <span>${item.name}</span>
-                <span>${item.price.toFixed(2)} €</span>
+                <div>
+                    ${item.name} -
+                    ${item.price.toFixed(2)} €
+                </div>
+
+                <button
+                    class="cart-btn remove-btn"
+                    onclick="removeItem(${index})">
+                    Entfernen
+                </button>
             </div>
         `;
     });
@@ -257,6 +286,38 @@ function searchProducts(){
             product.style.display = "none";
         }
     });
+}
+
+function checkout(){
+
+    if(cart.length === 0){
+        alert("Dein Warenkorb ist leer.");
+        return;
+    }
+
+    let orderText =
+        "Neue Bestellung:%0D%0A%0D%0A";
+
+    cart.forEach(item => {
+
+        orderText +=
+            item.name + " - " +
+            item.price.toFixed(2) +
+            " €%0D%0A";
+    });
+
+    orderText +=
+        "%0D%0A--------------------%0D%0A";
+
+    orderText +=
+        "Gesamt: " +
+        total.toFixed(2) +
+        " €";
+
+    window.location.href =
+        "mailto:ben.klosterfelde@hotmail.com" +
+        "?subject=Neue Bestellung" +
+        "&body=" + orderText;
 }
 </script>
 
